@@ -1,3 +1,6 @@
+import sys
+sys.path.append('.')
+
 import torch
 import torch.nn as nn
 from soccer3d.soccerdepth.models.hourglass import hg8
@@ -21,11 +24,11 @@ warnings.filterwarnings("ignore")
 
 # Testing settings
 parser = argparse.ArgumentParser(description='Depth estimation using Stacked Hourglass')
-parser.add_argument('--path_to_data', default='/home/krematas/Mountpoints/grail/data/Multiview/Portland/b6/players', help='path')
+parser.add_argument('--path_to_data', help='path')
 parser.add_argument('--dataset', default='a6', help='path')
 
 
-parser.add_argument('--modelpath', type=str, default='/home/krematas/Mountpoints/grail/tmp/cnn/model.pth', help='model file to use')
+parser.add_argument('--modelpath', type=str, default='./model.pth', help='model file to use')
 parser.add_argument('--epoch', type=int, default=292, help='testing batch size')
 parser.add_argument('--input_nc', type=int, default=4, help='input image channels')
 parser.add_argument('--output_nc', type=int, default=51, help='output image channels')

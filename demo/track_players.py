@@ -1,3 +1,6 @@
+import sys
+sys.path.append('.')
+
 import numpy as np
 import soccer3d
 from soccer3d.tracking import Detection, find_tracks, smooth_trajectory, convert_to_MOT

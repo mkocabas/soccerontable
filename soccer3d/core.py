@@ -135,7 +135,7 @@ class YoutubeVideo:
                                 {'A': A, 'R': R, 'T': T})
 
             for i, basename in enumerate(tqdm(self.frame_basenames)):
-                calib_npy = np.load(join(self.path_to_dataset, 'calib', '{0}.npy'.format(basename))).item()
+                calib_npy = np.load(join(self.path_to_dataset, 'calib', '{0}.npy'.format(basename)), allow_pickle=True).item()
                 A, R, T = calib_npy['A'], calib_npy['R'], calib_npy['T']
                 self.calib[basename] = {'A': A, 'R': R, 'T': T}
 
@@ -254,7 +254,7 @@ class YoutubeVideo:
 
                 cwd = os.getcwd()
                 os.chdir(openpose_dir)
-                command = '{0} --model_pose COCO --image_dir {1} --write_json {2} --model_folder {3}'.format(openposebin, tmp_dir, tmp_dir, openpose_dir+'models')
+                command = '{0} --model_pose COCO --image_dir {1} --write_json {2} --model_folder {3}'.format(openposebin, tmp_dir, tmp_dir, os.path.join(openpose_dir,'models'))
 
                 os.system(command)
                 os.chdir(cwd)

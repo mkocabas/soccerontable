@@ -1,6 +1,8 @@
 import torch
 import numpy as np
-from scipy.misc import imread, imresize, imsave, imrotate
+# from scipy.misc import imread, imresize, imsave, imrotate
+from skimage.io import imread, imsave
+from skimage.transform import resize, rotate
 from torchvision import transforms
 import scipy.ndimage
 import utils.io as io
@@ -52,9 +54,9 @@ class Rescale(object):
 
     def __call__(self, sample):
         image, mask, target = sample['image'], sample['mask'], sample['target']
-        image = imresize(image, (self.img_size, self.img_size))
-        mask = imresize(mask, (self.img_size, self.img_size), interp='nearest', mode='F')
-        target = imresize(target, (self.label_size, self.label_size), interp='nearest', mode='F')
+        image = resize(image, (self.img_size, self.img_size))
+        mask = resize(mask, (self.img_size, self.img_size))#, interp='nearest', mode='F')
+        target = resize(target, (self.label_size, self.label_size))#, interp='nearest', mode='F')
 
         return {'image': image, 'mask': mask, 'target': target}
 
@@ -89,9 +91,9 @@ class RandomRotation(object):
 
         angle = np.random.uniform(interval[0], interval[1])
 
-        image = imrotate(image, angle)
-        mask = imrotate(mask, angle, interp='nearest', mode='F')
-        target = imrotate(target, angle, interp='nearest', mode='F')
+        image = rotate(image, angle)
+        mask = rotate(mask, angle)#, interp='nearest', mode='F')
+        target = rotate(target, angle)#, interp='nearest', mode='F')
 
         return {'image': image, 'mask': mask, 'target': target}
 

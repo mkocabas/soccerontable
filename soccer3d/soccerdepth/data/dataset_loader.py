@@ -2,8 +2,8 @@ from os import listdir
 from os.path import join
 import numpy as np
 import torch.utils.data as data
-from scipy.misc import imread
-
+# from scipy.misc import imread
+from skimage.io import imread
 
 def get_set(train_dir, nbins=-1, transform=None, additional_input_type='estmask'):
     return DatasetFromFolder(train_dir, bins=nbins, transform=transform, additional_input_type=additional_input_type)
@@ -63,7 +63,7 @@ def load_img(filepath):
 
 
 def load_label(filepath, nbins=-1):
-    label = np.load(filepath).item()
+    label = np.load(filepath, allow_pickle=True).item()
     depth, mask, billboard = label['depth'], label['mask'], label['billboard']
     depth -= billboard
     if nbins > 0:

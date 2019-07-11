@@ -1,3 +1,6 @@
+import sys
+sys.path.append('.')
+
 import numpy as np
 from glumpy import app, gl, gloo, data
 from glumpy.transforms import Trackball, Position
